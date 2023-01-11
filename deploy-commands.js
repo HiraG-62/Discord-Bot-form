@@ -17,7 +17,7 @@ const rest = new REST({ version: '10' }).setToken(token);
 		console.log(`${commands.length} 個のアプリケーションコマンドを登録します。`);
 
 		const data = await rest.put(
-			Routes.applicationGuildCommands(clientId, guildId),
+			Routes.applicationCommands(clientId),
 			{ body: commands },
 		);
 

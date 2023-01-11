@@ -15,7 +15,6 @@ const {
     EmbedBuilder,
     TextInputBuilder,
     TextInputStyle,
-    StringSelectMenuBuilder
 } = require('discord.js');
 
 
@@ -39,9 +38,6 @@ for(const file of commandFiles) {
         console.log(filePath);
     }
 }
-
-
-let pyShell = new PythonShell('./pythonFiles/formWriter.py');
 
 
 client.once(Events.ClientReady, c => {
@@ -95,15 +91,6 @@ client.on(Events.InteractionCreate, async interaction => {
     if(interaction.customId === 'clickedStart' || interaction.customId === 'clickedEditFirst'){
 
         //ボタンを押した人のDiscord IDをpythonへ送信
-        let discordId = `discordId=${interaction.user.id}`;
-        pyShell.send(discordId);
-
-        pyShell.on('message', function (data) {
-            console.log(data);
-        });
-
-        console.log(interaction.user.id);
-
         const modal1 = new ModalBuilder()
             .setCustomId('modal1')
             .setTitle('エントリーシート1');
@@ -210,11 +197,17 @@ client.on('interactionCreate', async (interaction) => {
                     )
         }
 
-        entrys[0] = (interaction.fields.getTextInputValue('name'));
-        entrys[1] = (interaction.fields.getTextInputValue('history'));
-        entrys[2] = (interaction.fields.getTextInputValue('confidence'));
-        entrys[3] = (interaction.fields.getTextInputValue('poor'));
-    
+        let pyShell = new PythonShell('./pythonFiles/formWriter.py');
+        let jsonData = {
+            sheet: 'first',
+            discordId: interaction.user.id,
+            form1: encodeURI(interaction.fields.getTextInputValue('name')),
+            form2: encodeURI(interaction.fields.getTextInputValue('history')),
+            form3: encodeURI(interaction.fields.getTextInputValue('confidence')),
+            form4: encodeURI(interaction.fields.getTextInputValue('poor'))
+        };
+        pyShell.send(JSON.stringify(jsonData));
+
         await interaction.reply({embeds: [embed], components: [button]});
     }
 
@@ -317,9 +310,16 @@ client.on('interactionCreate', async (interaction) => {
                     )
         }
 
-        entrys[4] = (interaction.fields.getTextInputValue('ng'));
-        entrys[5] = (interaction.fields.getTextInputValue('streaming'));
-        entrys[6] = (interaction.fields.getTextInputValue('contact'));
+        let pyShell = new PythonShell('./pythonFiles/formWriter.py');
+        let jsonData = {
+            sheet: 'second',
+            discordId: interaction.user.id,
+            form1: encodeURI(interaction.fields.getTextInputValue('ng')),
+            form2: encodeURI(interaction.fields.getTextInputValue('streaming')),
+            form3: encodeURI(interaction.fields.getTextInputValue('contact')),
+            form4: 'empty'
+        };
+        pyShell.send(JSON.stringify(jsonData));
     
         await interaction.reply({embeds: [embed], components: [button]});
     }
