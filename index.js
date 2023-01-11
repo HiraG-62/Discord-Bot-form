@@ -42,7 +42,6 @@ for(const file of commandFiles) {
 
 
 let pyShell = new PythonShell('./pythonFiles/formWriter.py');
-pyShell.send('');
 
 
 client.once(Events.ClientReady, c => {
@@ -84,6 +83,7 @@ client.on(Events.InteractionCreate, async interaction => {
         await interaction.update({
             content: `${interaction.user.username}がエントリーしました`
         });
+
         await interaction.user.send({components: [dmEntryButton]});
     }
     //DMでのエントリー開始ボタン
@@ -93,6 +93,17 @@ client.on(Events.InteractionCreate, async interaction => {
     if(!interaction.isButton()) return;
 
     if(interaction.customId === 'clickedStart' || interaction.customId === 'clickedEditFirst'){
+
+        //ボタンを押した人のDiscord IDをpythonへ送信
+        let discordId = `discordId=${interaction.user.id}`;
+        pyShell.send(discordId);
+
+        pyShell.on('message', function (data) {
+            console.log(data);
+        });
+
+        console.log(interaction.user.id);
+
         const modal1 = new ModalBuilder()
             .setCustomId('modal1')
             .setTitle('エントリーシート1');
