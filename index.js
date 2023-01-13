@@ -4,7 +4,6 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const token = process.env.DISCORD_BOT_TOKEN;
-console.log(token)
 
 const {
     Client,
@@ -43,6 +42,10 @@ for(const file of commandFiles) {
     }
 }
 
+let ps = new PythonShell('./pythonFiles/formWriter.py');
+ps.on('message', function (data) {
+    console.log(data)
+})
 
 client.once(Events.ClientReady, c => {
     console.log("Ready!");

@@ -1,20 +1,26 @@
 import sys
+import os
 import urllib.parse
 import json
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from dotenv import load_dotenv
 
-json_path = './pythonFiles/teamentryform.json'
-gss_key = '1dsEZ4GDaZJ2UTDyPRhlMJs-jW3fiRj6ElZbL3BQlVvI'
+load_dotenv()
+
+str_json = os.getenv('GCP_JSON')
+env_json = json.loads(str_json)
+gss_key = os.getenv('GSS_KEY')
 api = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
 
-cred = ServiceAccountCredentials.from_json_keyfile_name(json_path, api)
+cred = ServiceAccountCredentials.from_json_keyfile_dict(env_json, api)
 gs_auth = gspread.authorize(cred)
 
 ws = gs_auth.open_by_key(gss_key).sheet1
 
-
 data = sys.stdin.readline()
+
+
 
 data_json = json.loads(data)
 data_json['form1'] = urllib.parse.unquote(data_json['form1'])
