@@ -1,4 +1,5 @@
 config.json
 teamentryform.json
+env/
 .env
 node_modules/
