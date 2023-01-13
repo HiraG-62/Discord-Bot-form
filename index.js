@@ -43,6 +43,7 @@ for(const file of commandFiles) {
 }
 
 let ps = new PythonShell('./pythonFiles/formWriter.py');
+ps.send('');
 ps.on('message', function (data) {
     console.log(data)
 })
@@ -77,9 +78,7 @@ client.on(Events.InteractionCreate, async interaction => {
                                 .setCustomId('clickedStart')
                                 .setLabel('エントリー開始')
                                 .setStyle(ButtonStyle.Success),
-                        );
-
-    if(!interaction.isButton()) return;
+                        );;
 
     //サーバーでのエントリーボタン設置
     if(interaction.customId === 'clickedEntry') {
@@ -89,13 +88,8 @@ client.on(Events.InteractionCreate, async interaction => {
 
         await interaction.user.send({components: [dmEntryButton]});
     }
-    //DMでのエントリー開始ボタン
-});
-
-client.on(Events.InteractionCreate, async interaction => {
-    if(!interaction.isButton()) return;
-
-    if(interaction.customId === 'clickedStart' || interaction.customId === 'clickedEditFirst'){
+    
+    else if(interaction.customId === 'clickedStart' || interaction.customId === 'clickedEditFirst'){
 
         //ボタンを押した人のDiscord IDをpythonへ送信
         const modal1 = new ModalBuilder()
@@ -139,12 +133,8 @@ client.on(Events.InteractionCreate, async interaction => {
     
         await interaction.showModal(modal1);
     }
-})
-
-client.on('interactionCreate', async (interaction) => {
-    if(!interaction.isModalSubmit()) return;
     
-    if(interaction.customId === 'modal1') {
+    else if(interaction.customId === 'modal1') {
         const button = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
@@ -218,12 +208,7 @@ client.on('interactionCreate', async (interaction) => {
         await interaction.reply({embeds: [embed], components: [button]});
     }
 
-});
-
-client.on('interactionCreate', async (interaction) => {
-    if(!interaction.isButton()) return;
-    
-    if(interaction.customId === 'clickedNext' || interaction.customId === 'clickedEditSecond'){
+    else if(interaction.customId === 'clickedNext' || interaction.customId === 'clickedEditSecond'){
         const modal2 = new ModalBuilder()
                 .setCustomId('modal2')
                 .setTitle('エントリーシート2');
@@ -256,12 +241,7 @@ client.on('interactionCreate', async (interaction) => {
         await interaction.showModal(modal2);
     }
 
-});
-
-client.on('interactionCreate', async (interaction) => {
-    if(!interaction.isModalSubmit()) return;
-
-    if(interaction.customId === 'modal2') {
+    else if(interaction.customId === 'modal2') {
         const button = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
@@ -330,12 +310,8 @@ client.on('interactionCreate', async (interaction) => {
     
         await interaction.reply({embeds: [embed], components: [button]});
     }
-});
 
-client.on('interactionCreate', async (interaction) => {
-    if(!interaction.isButton()) return;
-
-    if(interaction.customId === 'clickedSend') {
+    else if(interaction.customId === 'clickedSend') {
         console.log(entrys);
         interaction.reply('エントリーありがとうございました。');
     }
