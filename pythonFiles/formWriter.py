@@ -4,9 +4,7 @@ import urllib.parse
 import json
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-from dotenv import load_dotenv
 
-load_dotenv()
 
 str_json = os.getenv('GCP_JSON')
 env_json = json.loads(str_json)
