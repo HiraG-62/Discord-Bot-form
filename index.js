@@ -1,7 +1,11 @@
+require('dotenv').config();
 const { PythonShell } = require('python-shell');
 const fs = require('node:fs');
 const path = require('node:path');
-const { clientId, guildId, token } = require('./config.json');
+
+const token = process.env.DISCORD_BOT_TOKEN;
+console.log(token)
+
 const {
     Client,
     Collection,
