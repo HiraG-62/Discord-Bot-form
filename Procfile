@@ -1,2 +1,2 @@
 worker: node index.js
-py: python ./pythonWriter/formWriter.py
+py: python ./pythonFiles/formWriter.py
