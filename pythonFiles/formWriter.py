@@ -18,7 +18,7 @@ ws = gs_auth.open_by_key(gss_key).sheet1
 
 data = sys.stdin.readline()
 
-
+print('a')
 
 data_json = json.loads(data)
 data_json['form1'] = urllib.parse.unquote(data_json['form1'])
