@@ -3,5 +3,24 @@
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "python-shell": "^3.0.1"
-  }
+  },
+  "name": "discord-bot-form",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HiraG-62/Discord-Bot-form.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HiraG-62/Discord-Bot-form/issues"
+  },
+  "homepage": "https://github.com/HiraG-62/Discord-Bot-form#readme",
+  "description": ""
 }
