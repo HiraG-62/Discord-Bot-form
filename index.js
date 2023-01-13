@@ -312,7 +312,6 @@ client.on(Events.InteractionCreate, async interaction => {
     }
 
     else if(interaction.customId === 'clickedSend') {
-        console.log(entrys);
         interaction.reply('エントリーありがとうございました。');
     }
 });
