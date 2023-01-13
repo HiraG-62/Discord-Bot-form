@@ -20,7 +20,6 @@ ws = gs_auth.open_by_key(gss_key).sheet1
 
 data = sys.stdin.readline()
 
-print('a')
 
 data_json = json.loads(data)
 data_json['form1'] = urllib.parse.unquote(data_json['form1'])
@@ -35,7 +34,7 @@ id = data_json['discordId']
 while (1):
     if((ws.cell(row, 9).value == id) or (ws.cell(row, 9).value == None)):
         if(data_json['sheet'] == 'first'):
-            ws.update_cell(row, 1, row - 2)
+            ws.update_cell(row, 1, row - 1)
             ws.update_cell(row, 2, data_json['form1'])
             ws.update_cell(row, 3, data_json['form2'])
             ws.update_cell(row, 4, data_json['form3'])
