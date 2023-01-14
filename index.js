@@ -78,13 +78,17 @@ client.on(Events.InteractionCreate, async interaction => {
                                 .setCustomId('clickedStart')
                                 .setLabel('エントリー開始')
                                 .setStyle(ButtonStyle.Success),
-                        );;
+                        );
 
     //サーバーでのエントリーボタン設置
     if(interaction.customId === 'clickedEntry') {
         await interaction.update({
             content: `${interaction.user.username}がエントリーしました`
         });
+
+        const targetGuild = client.guilds.cache.get('897119069445193768');
+        const role = targetGuild.roles.cache.find(role => role.name === '第3弾[スプラ3] 参加者');
+        targetGuild.members.cache.get(interaction.user.id).roles.add(role);
 
         await interaction.user.send({components: [dmEntryButton]});
     }
